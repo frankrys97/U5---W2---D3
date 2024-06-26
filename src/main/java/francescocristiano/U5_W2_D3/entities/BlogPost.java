@@ -13,6 +13,7 @@ public class BlogPost {
     @Id
     @GeneratedValue
     private UUID id;
+    @Enumerated(EnumType.STRING)
     private Category category;
     private String title;
     private String cover;

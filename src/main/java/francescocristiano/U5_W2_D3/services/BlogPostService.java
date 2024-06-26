@@ -3,7 +3,7 @@ package francescocristiano.U5_W2_D3.services;
 
 import francescocristiano.U5_W2_D3.entities.BlogPost;
 import francescocristiano.U5_W2_D3.entities.BlogPostPayload;
-import francescocristiano.U5_W2_D3.exeptions.NotFoundExpetion;
+import francescocristiano.U5_W2_D3.exeptions.NotFoundException;
 import francescocristiano.U5_W2_D3.repositories.BlogPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class BlogPostService {
     }
 
     public BlogPost findBlogPostById(UUID id) {
-        return this.blogPostRepository.findById(id).orElseThrow(() -> new NotFoundExpetion(id));
+        return this.blogPostRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
     public BlogPost findBlogPostByIdAndUpdate(UUID id, BlogPost blogPostUpdated) {

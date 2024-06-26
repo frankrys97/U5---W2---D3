@@ -1,7 +1,7 @@
 package francescocristiano.U5_W2_D3.services;
 
 import francescocristiano.U5_W2_D3.entities.Author;
-import francescocristiano.U5_W2_D3.exeptions.NotFoundExpetion;
+import francescocristiano.U5_W2_D3.exeptions.NotFoundException;
 import francescocristiano.U5_W2_D3.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class AuthorService {
     }
 
     public Author findAuthorById(UUID id) {
-        return this.authorRepository.findById(id).orElseThrow(() -> new NotFoundExpetion(id));
+        return this.authorRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
     public Author findAuthorByIdAndUpdate(UUID id, Author authorUpdated) {
