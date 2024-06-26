@@ -3,17 +3,18 @@ package francescocristiano.U5_W2_D3.entities;
 import francescocristiano.U5_W2_D3.enums.Category;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 
 @Data
+@NoArgsConstructor
 @Entity
 public class BlogPost {
     @Id
     @GeneratedValue
     private UUID id;
-    @Enumerated(EnumType.STRING)
     private Category category;
     private String title;
     private String cover;

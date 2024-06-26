@@ -6,9 +6,12 @@ import francescocristiano.U5_W2_D3.entities.BlogPostPayload;
 import francescocristiano.U5_W2_D3.exeptions.NotFoundException;
 import francescocristiano.U5_W2_D3.repositories.BlogPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,8 +26,6 @@ public class BlogPostService {
 
     public BlogPostPayload saveBlogPost(BlogPostPayload blogPostPayload) {
 
-        System.out.println();
-
         BlogPost blogpost1 = new BlogPost(blogPostPayload.getCategory(), blogPostPayload.getTitle(), blogPostPayload.getBody(), blogPostPayload.getReadingTime(), authorService.findAuthorById(blogPostPayload.getAuthorId()));
 
         blogPostRepository.save(blogpost1);
@@ -32,9 +33,16 @@ public class BlogPostService {
     }
 
 
-    public List<BlogPost> getAllBlogPosts() {
-        return this.blogPostRepository.findAll();
+    public Page<BlogPost> getAllBlogPosts(int pageNumber, int pageSize, String sortBy) {
+        if (pageSize > 100) pageSize = 100;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        return blogPostRepository.findAll(pageable);
     }
+
+    /*public List<BlogPost> getAllBlogPosts() {
+        return this.blogPostRepository.findAll();
+    }*/
+
 
     public BlogPost findBlogPostById(UUID id) {
         return this.blogPostRepository.findById(id).orElseThrow(() -> new NotFoundException(id));

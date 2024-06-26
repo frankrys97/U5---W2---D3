@@ -5,10 +5,10 @@ import francescocristiano.U5_W2_D3.entities.BlogPost;
 import francescocristiano.U5_W2_D3.entities.BlogPostPayload;
 import francescocristiano.U5_W2_D3.services.BlogPostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,10 +18,16 @@ public class BlogPostController {
     private BlogPostService blogPostService;
 
 
-    @GetMapping
+   /* @GetMapping
     private List<BlogPost> getAllBlogPosts() {
         return blogPostService.getAllBlogPosts();
+    }*/
+
+    @GetMapping
+    public Page<BlogPost> getAllBlogPosts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
+        return blogPostService.getAllBlogPosts(page, size, sortBy);
     }
+    
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
